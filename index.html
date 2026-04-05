@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>媒体图床（企业增强版）</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="page-header">
+        <h1>媒体图床（企业增强版）</h1>
+        <p>支持鉴权上传、历史检索、分页、在线预览、下载、删除和复制外链。</p>
+      </header>
+
+      <section class="panel upload-panel">
+        <h2>上传媒体</h2>
+        <div class="upload-controls">
+          <input id="apiKeyInput" type="password" placeholder="可选：输入 API Key（用于上传/删除）" />
+          <input id="fileInput" type="file" multiple accept="image/*,video/*" />
+          <button id="uploadBtn" class="primary">上传文件</button>
+          <button id="clearBtn" class="danger">清空历史</button>
+        </div>
+        <p class="hint">启用 REQUIRE_API_KEY=true 后，上传/删除操作需要 API Key。</p>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="history-header">
+          <h2>历史媒体</h2>
+          <span id="stats"></span>
+        </div>
+        <div class="query-controls">
+          <input id="searchInput" type="search" placeholder="按文件名搜索" />
+          <select id="typeSelect">
+            <option value="all">全部类型</option>
+            <option value="image">仅图片</option>
+            <option value="video">仅视频</option>
+          </select>
+          <button id="prevPageBtn">上一页</button>
+          <button id="nextPageBtn">下一页</button>
+          <span id="pageInfo"></span>
+        </div>
+        <div id="mediaGrid" class="media-grid" aria-live="polite"></div>
+        <p id="emptyState" class="empty-state">暂无文件，请先上传。</p>
+      </section>
+    </main>
+
+    <dialog id="previewDialog" class="preview-dialog">
+      <div class="preview-content">
+        <button id="closePreviewBtn" class="close-btn" aria-label="关闭预览">×</button>
+        <h3 id="previewTitle"></h3>
+        <div id="previewBody" class="preview-body"></div>
+      </div>
+    </dialog>
+
+    <template id="mediaCardTemplate">
+      <article class="media-card">
+        <button class="thumb-btn" type="button"></button>
+        <div class="media-meta">
+          <strong class="file-name"></strong>
+          <small class="file-info"></small>
+        </div>
+        <div class="media-actions">
+          <button class="copy-btn">复制链接</button>
+          <button class="download-btn">下载</button>
+          <button class="delete-btn danger">删除</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
